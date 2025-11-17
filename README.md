@@ -62,8 +62,8 @@ npm run build
 
 # Build standalone widget
 npm run build:widget
-
-The widget will be generated in `dist/widget/stocks.bundle.js` (~26KB, ~10KB gzip).
+```
+The widget will be generated in `dist/widget/stocks.bundle.js`.
 
 ### Tests
 
@@ -96,7 +96,7 @@ Then edit `.env.local`:
 
 ```
 VITE_ALPHA_VANTAGE_API_URL=alphavantage.co
-VITE_ALPHA_VANTAGE_API_KEY=your-api-key
+VITE_API_KEY=your-api-key
 ```
 
 ### For widget build
