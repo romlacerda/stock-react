@@ -56,13 +56,14 @@ npm run dev
 
 ### Build
 
-````bash
+```bash
 # Build React app
 npm run build
 
 # Build standalone widget
 npm run build:widget
 ```
+
 The widget will be generated in `dist/widget/stocks.bundle.js`.
 
 ### Tests
@@ -133,4 +134,7 @@ Example:
 - Optimized bundle: native fetch instead of axios
 - Supports dark/light themes
 - Configurable automatic updates via polling
-````
+
+```
+
+```
