@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>R2Stocks Widget - Demo</title>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        padding: 40px;
+        background: #fff;
+      }
+      .demo-section {
+        background: white;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      h2 {
+        color: #666;
+        margin-top: 0;
+      }
+
+      #stocks-widget {
+        min-height: 300px;
+        border: 2px dashed #ddd;
+        padding: 20px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>R2Stocks Widget - Embed Test</h1>
+
+    <div id="stocks-widget"></div>
+
+    </div>
+
+    <script src="./stocks.bundle.js"></script>
+    <script>
+      function initWidget() {
+        if (typeof StocksSnapshot === "undefined") {
+          setTimeout(initWidget, 100);
+          return;
+        }
+
+        StocksSnapshot.init({
+          containerId: "stocks-widget",
+          symbol: "IBM",
+          apikey: "demo",
+          refreshInterval: 60000,
+          theme: 'dark'
+        })
+          .then(() => {
+            console.log("Widget initialized successfully!");
+          })
+          .catch((err) => {
+            console.error("Widget initialization failed:", err);
+            document.getElementById("stocks-widget").innerHTML =
+              '<p style="color: red;">Error: ' + err.message + "</p>";
+          });
+      }
+
+      initWidget();
+    </script>
+  </body>
+</html>

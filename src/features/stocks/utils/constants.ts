@@ -1,0 +1,2 @@
+export const DEFAULT_SYMBOL = "IBM";
+export const DEFAULT_POLLING_INTERVAL = 60_000;

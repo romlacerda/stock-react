@@ -1,73 +1,145 @@
-# React + TypeScript + Vite
+# R2Stocks Widget
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Real-time stock quotes widget that can be embedded in any website. Displays stock prices with automatic updates via polling.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Shows stock information (price, variation, chart) and automatically updates every minute (or configured interval). Works as a standalone widget that you can add to any HTML page.
 
-## React Compiler
+## Usage
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### As embedded widget
 
-## Expanding the ESLint configuration
+1. Add the script to your HTML:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```html
+<script src="https://your-cdn.com/stocks.bundle.js"></script>
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Create a container and initialize:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```html
+<div id="stocks-widget"></div>
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+<script>
+  StocksSnapshot.init({
+    containerId: "stocks-widget",
+    symbol: "IBM",
+    apikey: "your-api-key",
+    refreshInterval: 60000, // optional, default: 60000ms
+    theme: "dark", // optional: 'dark' or 'light'
+  });
+</script>
 ```
+
+### Initialization options
+
+- `containerId` (required): ID of the HTML element where the widget will be rendered
+- `symbol` (optional): Stock symbol (e.g., 'IBM', 'AAPL'). Default: 'IBM'
+- `apikey` (optional): Alpha Vantage API key. If not provided, use 'demo'
+- `refreshInterval` (optional): Update interval in ms. Default: 60000 (1 minute)
+- `theme` (optional): 'dark' or 'light' theme. Default: 'dark'
+
+## Development
+
+### Setup
+
+```bash
+npm install
+```
+
+### Run in dev mode
+
+```bash
+npm run dev
+```
+
+### Build
+
+````bash
+# Build React app
+npm run build
+
+# Build standalone widget
+npm run build:widget
+
+The widget will be generated in `dist/widget/stocks.bundle.js` (~26KB, ~10KB gzip).
+
+### Test the widget
+
+```bash
+npm run test:widget
+````
+
+Opens a local server at `http://localhost:8000` with a demo page.
+
+### Tests
+
+```bash
+# Unit tests
+npm test
+
+# E2E tests
+npm run test:e2e
+```
+
+## Structure
+
+- `src/widget/` - Embeddable widget code
+- `src/features/stocks/` - Business logic (API, components)
+- `src/routes/app/` - Main dashboard
+- `demo/` - Widget demonstration page
+
+## Environment variables
+
+### For development (React app)
+
+Create a `.env.local` file in the root:
+
+```bash
+cp .env.example .env.local
+```
+
+Then edit `.env.local`:
+
+```
+VITE_ALPHA_VANTAGE_API_URL=alphavantage.co
+VITE_ALPHA_VANTAGE_API_KEY=your-api-key
+VITE_DEFAULT_SYMBOL=IBM
+```
+
+### For widget build
+
+When building the widget (`npm run build:widget`), the **base URL** (`VITE_ALPHA_VANTAGE_API_URL`) is baked into the bundle. This means:
+
+- Set `VITE_ALPHA_VANTAGE_API_URL` in your `.env.local` before building
+- The API key is **NOT** baked in - it must be passed via `init()` options
+- Each user of the widget passes their own API key when initializing
+
+Example:
+
+```html
+<script>
+  StocksSnapshot.init({
+    containerId: "stocks-widget",
+    symbol: "IBM",
+    apikey: "user-api-key-here", // User provides their own key
+    theme: "dark",
+  });
+</script>
+```
+
+## Stack
+
+- Preact (lighter React)
+- TypeScript
+- Vite
+- Vitest + Playwright for testing
+- CSS Modules
+
+## Notes
+
+- Widget uses Shadow DOM for style isolation
+- Optimized bundle: native fetch instead of axios
+- Supports dark/light themes
+- Configurable automatic updates via polling

@@ -1,0 +1,92 @@
+.card {
+  width: 350px;
+  height: fit-content;
+  background-color: var(--stocks-bg-color);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  border: 1px solid var(--stocks-border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.cardHeader {
+  margin-bottom: 8px;
+  border-radius: 6px 6px 0 0;
+  color: var(--stocks-text-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  color: var(--stocks-text-color);
+  font-size: 28px;
+}
+
+.cardBody {
+  color: var(--stocks-text-color);
+}
+
+.cardBody p {
+  margin: 0;
+  color: var(--stocks-text-color);
+}
+
+.cardBody p.positive {
+  color: var(--stocks-positive-color);
+}
+
+.cardBody p.negative {
+  color: var(--stocks-negative-color);
+}
+
+.cardFooter {
+  color: var(--stocks-text-secondary);
+  font-size: 14px;
+}
+
+.positiveFloatingBadge {
+  background-color: var(--stocks-positive-color);
+  color: var(--stocks-text-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 8px;
+}
+
+.negativeFloatingBadge {
+  background-color: var(--stocks-negative-color);
+  color: var(--stocks-text-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 8px;
+}
+
+.cardBodyContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.positiveNumber {
+  color: var(--stocks-positive-color);
+}
+
+.negativeNumber {
+  color: var(--stocks-negative-color);
+}
+
+.stockPrice {
+  font-size: 24px;
+  font-weight: 600;
+}
