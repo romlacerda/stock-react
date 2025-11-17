@@ -76,10 +76,6 @@ npm test
 npm run test:e2e
 ```
 
-### Run widget locally
-
-To build and serve the widget demo:
-
 # Build widget and start server
 
 ```bash
