@@ -76,6 +76,22 @@ npm test
 npm run test:e2e
 ```
 
+### Run widget locally
+
+To build and serve the widget demo:
+
+# Build widget and start server
+
+```bash
+npm run test:widget
+```
+
+This will:
+
+1. Build the widget bundle
+2. Start a local server on port 8000
+3. Open `http://localhost:8000` to see the demo
+
 ## Structure
 
 - `src/widget/` - Embeddable widget code
