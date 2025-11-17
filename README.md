@@ -76,7 +76,7 @@ npm test
 npm run test:e2e
 ```
 
-# Build widget and start server
+## Build widget and start server
 
 ```bash
 npm run test:widget
