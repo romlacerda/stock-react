@@ -4,7 +4,7 @@ Real-time stock quotes widget that can be embedded in any website. Displays stoc
 
 ## What it does
 
-Shows stock information (price, variation, chart) and automatically updates every minute (or configured interval). Works as a standalone widget that you can add to any HTML page.
+Shows stock information and automatically updates every minute (or configured interval). Works as a standalone widget that you can add to any HTML page.
 
 ## Usage
 
@@ -65,14 +65,6 @@ npm run build:widget
 
 The widget will be generated in `dist/widget/stocks.bundle.js` (~26KB, ~10KB gzip).
 
-### Test the widget
-
-```bash
-npm run test:widget
-````
-
-Opens a local server at `http://localhost:8000` with a demo page.
-
 ### Tests
 
 ```bash
@@ -86,7 +78,7 @@ npm run test:e2e
 ## Structure
 
 - `src/widget/` - Embeddable widget code
-- `src/features/stocks/` - Business logic (API, components)
+- `src/features/stocks/` - Business logic (API, components, hooks)
 - `src/routes/app/` - Main dashboard
 - `demo/` - Widget demonstration page
 
@@ -105,7 +97,6 @@ Then edit `.env.local`:
 ```
 VITE_ALPHA_VANTAGE_API_URL=alphavantage.co
 VITE_ALPHA_VANTAGE_API_KEY=your-api-key
-VITE_DEFAULT_SYMBOL=IBM
 ```
 
 ### For widget build
@@ -113,8 +104,7 @@ VITE_DEFAULT_SYMBOL=IBM
 When building the widget (`npm run build:widget`), the **base URL** (`VITE_ALPHA_VANTAGE_API_URL`) is baked into the bundle. This means:
 
 - Set `VITE_ALPHA_VANTAGE_API_URL` in your `.env.local` before building
-- The API key is **NOT** baked in - it must be passed via `init()` options
-- Each user of the widget passes their own API key when initializing
+- The API key is must be passed via `init()` options
 
 Example:
 
@@ -143,3 +133,4 @@ Example:
 - Optimized bundle: native fetch instead of axios
 - Supports dark/light themes
 - Configurable automatic updates via polling
+````
