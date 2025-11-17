@@ -134,7 +134,3 @@ Example:
 - Optimized bundle: native fetch instead of axios
 - Supports dark/light themes
 - Configurable automatic updates via polling
-
-```
-
-```
